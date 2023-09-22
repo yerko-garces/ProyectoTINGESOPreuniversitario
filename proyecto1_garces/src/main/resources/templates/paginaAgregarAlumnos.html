@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar alumnos</title>
+</head>
+<body>
+    <h1>Registrar alumnos</h1>
+    <form method="post" action="/agregarAlumno">
+        <label for="rut">rut:</label>
+        <input type="text" id="rut" name="rut" required><br>
+
+        <label for="apellidoPaterno">Apellido Paterno:</label>
+        <input type="text" id="apellidoPaterno" name="apellidoPaterno" required><br>
+
+        <label for="apellidoMaterno">Apellido Materno:</label>
+        <input type="text" id="apellidoMaterno" name="apellidoMaterno" required><br>
+
+        <label for="primerNombre">Primer nombre:</label>
+        <input type="text" id="primerNombre" name="primerNombre" required><br>
+
+        <label for="segundoNombre">Segundo nombre:</label>
+        <input type="text" id="segundoNombre" name="segundoNombre" required><br>
+
+        <label for="nacimiento">Fecha de nacimiento(EJ: 01/01/2000):</label>
+        <input type="text" id="nacimiento" name="nacimiento" required><br>
+
+        <label for="tipoColegioProcedencia">Tipo de colegio de procedencia:</label>
+        <input type="text" id="tipoColegioProcedencia" name="tipoColegioProcedencia" required><br>
+
+        <label for="nombreColegio">Nombre del colegio en el que estudia o egreso:</label>
+        <input type="text" id="nombreColegio" name="nombreColegio" required><br>
+
+        <label for="anioEgresoColegio">Año de egreso:</label>
+        <input type="text" id="anioEgresoColegio" name="anioEgresoColegio" required><br>
+
+
+        <input type="submit" value="Agregar Alumno">
+    </form>
+</body>
+</html>

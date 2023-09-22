@@ -17,12 +17,20 @@ public class AlumnoEntity {
     private Long id;
 
     private String rut;
+
     private String apelleido_paterno;
+
     private String apelleido_materno;
+
     private String primer_nombre;
+
     private String segundo_nombre;
+
     private String nacimiento;
+
     private String tipo_colegio_procedencia;
+
     private String nombre_colegio;
+
     private String año_egreso_colegio;
 }
