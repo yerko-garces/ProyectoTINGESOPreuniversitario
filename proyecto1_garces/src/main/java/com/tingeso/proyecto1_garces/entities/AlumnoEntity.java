@@ -14,7 +14,7 @@ public class AlumnoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Long id;
+    private Long id_alumno;
 
     private String rut;
 
@@ -33,4 +33,5 @@ public class AlumnoEntity {
     private String nombre_colegio;
 
     private String año_egreso_colegio;
+
 }
