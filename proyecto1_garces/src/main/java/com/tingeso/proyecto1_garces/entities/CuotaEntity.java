@@ -17,6 +17,10 @@ public class CuotaEntity {
     @Column(unique = true, nullable = false)
     private Long id_cuota;
 
+    private String tipo_pago;
+
+    private Integer cantidad_cuotas;
+
     private Double marzo;
 
     private Double abril;

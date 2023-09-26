@@ -16,16 +16,6 @@ public class AlumnoController {
     @Autowired
     AlumnoService alumnoService;
 
-    @GetMapping("/paginaAgregarAlumnos")
-    public String mostrarPaginaAgregarAlumnos() {
-        return "paginaAgregarAlumnos";
-    }
-
-    @GetMapping("/paginaCuotas")
-    public String mostrarPaginaCantidadCuotas() {
-        return "paginaCuotas";
-    }
-
     @PostMapping("/agregarAlumno")
     public String agregarAlumno(@RequestParam String rut, @RequestParam String apellidoPaterno, @RequestParam String apellidoMaterno, @RequestParam String primerNombre, @RequestParam String segundoNombre,
                                  @RequestParam String nacimiento, @RequestParam String tipoColegioProcedencia, @RequestParam String nombreColegio, @RequestParam String anioEgresoColegio){
@@ -45,18 +35,4 @@ public class AlumnoController {
         return "index";
     }
 
-    @GetMapping("/posibilidadDeCuotas")
-    @ResponseBody
-    public String posibilidadDeCuotas(){
-        String cantidadCuotas = alumnoService.cantidadCuotas();
-        return "La cantidad maxima de cuotas a las que puede optar son " + cantidadCuotas;
-    }
-
-    @PostMapping("/calcularMontoCuotas")
-    public String calcularCuota(@RequestParam("cantidad") Integer cantidad, Model model) {
-        Double resultadoMT = alumnoService.calcularMontoTotal();
-        Double resultado = alumnoService.calcularCuota(resultadoMT, cantidad);
-        model.addAttribute("resultado", resultado);
-        return "paginaCuotas"; // Devuelve el nombre de la página HTML que mostrará el resultado
-    }
 }

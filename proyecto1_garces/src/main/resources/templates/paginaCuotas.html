@@ -9,18 +9,10 @@
 
   <div id="info"></div>
 
-  <script>
-        window.onload = function() {
-            fetch('/posibilidadDeCuotas')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('info').textContent = data;
-                });
-        };
-    </script>
+  <p th:text="${resultadoCantidad}"></p>
 
   <form method="post" action="/calcularMontoCuotas">
-      <input type="text" name="cantidad" placeholder="Ingrese la cantidad de cuotas">
+      <input type="text" name="cantidad">
       <button type="submit">Calcular</button>
   </form>
 
