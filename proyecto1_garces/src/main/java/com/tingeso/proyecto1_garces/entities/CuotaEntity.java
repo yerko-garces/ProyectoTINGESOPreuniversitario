@@ -38,7 +38,7 @@ public class CuotaEntity {
     private Double diciembre;
 
     @OneToOne
-    @JoinColumn(name = "id_alumno")        
+    @JoinColumn(name = "id_alumno")
     AlumnoEntity alumno;
 
 }

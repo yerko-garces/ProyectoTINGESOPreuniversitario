@@ -16,7 +16,11 @@ public class AlumnoService {
         return alumnoRepository.save(alumno);
     }
 
-    public Double calcularMontoTotal(AlumnoEntity alumno){
+    public AlumnoEntity ultimoAlumnoInscrito () {return alumnoRepository.idMayor();}
+
+    public Double calcularMontoTotal(){
+
+        AlumnoEntity alumno = ultimoAlumnoInscrito();
 
         Double precioInicial = Double.valueOf(1500000);
         Integer auxiliar = 0;
@@ -52,6 +56,21 @@ public class AlumnoService {
        }
 
        return precioInicial;
+    }
+
+    public String cantidadCuotas(){
+        AlumnoEntity alumno = alumnoRepository.idMayor();
+        switch (alumno.getTipo_colegio_procedencia()){
+            case "Municipal":
+                return "diez";
+
+            case "Subvencionado":
+                return "siete";
+
+            case "Privado":
+                return "cuatro";
+        }
+        return null;
     }
 
     public Double calcularCuota(Double total, Integer cantidadCuotas){

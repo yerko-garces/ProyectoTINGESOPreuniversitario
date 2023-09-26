@@ -1,13 +1,13 @@
 package com.tingeso.proyecto1_garces.controllers;
 
 import com.tingeso.proyecto1_garces.entities.AlumnoEntity;
+import com.tingeso.proyecto1_garces.entities.CuotaEntity;
+import com.tingeso.proyecto1_garces.repositories.AlumnoRepository;
 import com.tingeso.proyecto1_garces.services.AlumnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping
@@ -20,6 +20,12 @@ public class AlumnoController {
     public String mostrarPaginaAgregarAlumnos() {
         return "paginaAgregarAlumnos";
     }
+
+    @GetMapping("/paginaCuotas")
+    public String mostrarPaginaCantidadCuotas() {
+        return "paginaCuotas";
+    }
+
     @PostMapping("/agregarAlumno")
     public String agregarAlumno(@RequestParam String rut, @RequestParam String apellidoPaterno, @RequestParam String apellidoMaterno, @RequestParam String primerNombre, @RequestParam String segundoNombre,
                                  @RequestParam String nacimiento, @RequestParam String tipoColegioProcedencia, @RequestParam String nombreColegio, @RequestParam String anioEgresoColegio){
@@ -36,6 +42,21 @@ public class AlumnoController {
 
         alumnoService.agregarAlumno(nuevoAlumno);
 
-        return "paginaAgregarAlumnos";
+        return "index";
+    }
+
+    @GetMapping("/posibilidadDeCuotas")
+    @ResponseBody
+    public String posibilidadDeCuotas(){
+        String cantidadCuotas = alumnoService.cantidadCuotas();
+        return "La cantidad maxima de cuotas a las que puede optar son " + cantidadCuotas;
+    }
+
+    @PostMapping("/calcularMontoCuotas")
+    public String calcularCuota(@RequestParam("cantidad") Integer cantidad, Model model) {
+        Double resultadoMT = alumnoService.calcularMontoTotal();
+        Double resultado = alumnoService.calcularCuota(resultadoMT, cantidad);
+        model.addAttribute("resultado", resultado);
+        return "paginaCuotas"; // Devuelve el nombre de la página HTML que mostrará el resultado
     }
 }
