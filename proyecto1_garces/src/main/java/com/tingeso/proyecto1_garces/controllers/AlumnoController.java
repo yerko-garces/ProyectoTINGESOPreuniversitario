@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping
 public class AlumnoController {
@@ -18,7 +20,7 @@ public class AlumnoController {
 
     @PostMapping("/agregarAlumno")
     public String agregarAlumno(@RequestParam String rut, @RequestParam String apellidoPaterno, @RequestParam String apellidoMaterno, @RequestParam String primerNombre, @RequestParam String segundoNombre,
-                                 @RequestParam String nacimiento, @RequestParam String tipoColegioProcedencia, @RequestParam String nombreColegio, @RequestParam String anioEgresoColegio){
+                                @RequestParam LocalDate nacimiento, @RequestParam String tipoColegioProcedencia, @RequestParam String nombreColegio, @RequestParam Integer anioEgresoColegio){
         AlumnoEntity nuevoAlumno = new AlumnoEntity();
         nuevoAlumno.setRut(rut);
         nuevoAlumno.setApelleido_paterno(apellidoPaterno);

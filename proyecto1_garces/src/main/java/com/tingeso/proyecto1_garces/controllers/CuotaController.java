@@ -29,6 +29,6 @@ public class CuotaController {
         Double resultadoMT = alumnoService.calcularMontoTotal();
         Double resultado = alumnoService.calcularCuota(resultadoMT, cantidad);
         model.addAttribute("resultado", resultado);
-        return "paginaCuotas"; // Devuelve el nombre de la página HTML que mostrará el resultado
+        return "paginaCuotas";
     }
 }

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "alumno")
 @Data
@@ -26,12 +28,12 @@ public class AlumnoEntity {
 
     private String segundo_nombre;
 
-    private String nacimiento;
+    private LocalDate nacimiento;
 
     private String tipo_colegio_procedencia;
 
     private String nombre_colegio;
 
-    private String año_egreso_colegio;
+    private Integer año_egreso_colegio;
 
 }

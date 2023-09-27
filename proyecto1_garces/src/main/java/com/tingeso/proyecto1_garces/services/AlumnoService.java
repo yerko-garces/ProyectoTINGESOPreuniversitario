@@ -6,6 +6,8 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class AlumnoService {
 
@@ -41,7 +43,7 @@ public class AlumnoService {
                break;
        }
 
-       Integer aniosDeEgreso = 2023 - Integer.parseInt(alumno.getAño_egreso_colegio());
+       Integer aniosDeEgreso = LocalDateTime.now().getYear() - alumno.getAño_egreso_colegio();
 
        if(aniosDeEgreso == 0){
            precioInicial = precioInicial - (precioInicial * 0.15);
@@ -78,4 +80,16 @@ public class AlumnoService {
         return cuotas;
     }
 
+    public Integer numeroCantidadCuotas(){
+        if(cantidadCuotas() == "diez"){
+            return 10;
+        }
+        if(cantidadCuotas() == "siete"){
+            return 7;
+        }
+        if (cantidadCuotas() == "cuatro"){
+            return 4;
+        }
+        return null;
+    }
 }
