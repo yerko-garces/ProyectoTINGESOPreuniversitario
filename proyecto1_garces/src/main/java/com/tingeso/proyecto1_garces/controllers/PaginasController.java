@@ -13,8 +13,8 @@ public class PaginasController {
         return "paginaAgregarAlumnos";
     }
 
-    @GetMapping("/paginaCuotas")
-    public String mostrarPaginaCantidadCuotas() {
-        return "paginaCuotas";
+    @GetMapping("/paginaEntregarNotas")
+    public String mostrarPaginaEntregarNotas() {
+        return "paginaEntregarNotas";
     }
 }

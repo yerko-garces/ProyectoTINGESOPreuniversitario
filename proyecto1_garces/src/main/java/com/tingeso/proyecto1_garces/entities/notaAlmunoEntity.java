@@ -1,5 +1,6 @@
 package com.tingeso.proyecto1_garces.entities;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,16 +13,16 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class notaAlmunoEntity {
+public class NotaAlmunoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id_nota_alumno;
 
-    private String rut_estudiante;
+    private Integer rut_estudiante;
 
     private LocalDate fecha_examen;
 
-    private String puntaje;
+    private Integer puntaje;
 }
