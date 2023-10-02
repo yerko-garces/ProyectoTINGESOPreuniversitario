@@ -13,11 +13,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AlumnoEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private Long id_alumno;
 
+    @Id
+    @Column(unique = true, nullable = false)
     private String rut;
 
     private String apelleido_paterno;

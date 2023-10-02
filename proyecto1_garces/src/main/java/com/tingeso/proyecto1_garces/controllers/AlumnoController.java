@@ -4,6 +4,7 @@ import com.tingeso.proyecto1_garces.entities.AlumnoEntity;
 import com.tingeso.proyecto1_garces.entities.CuotaEntity;
 import com.tingeso.proyecto1_garces.repositories.AlumnoRepository;
 import com.tingeso.proyecto1_garces.services.AlumnoService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,7 @@ public class AlumnoController {
 
     @PostMapping("/agregarAlumno")
     public String agregarAlumno(@RequestParam String rut, @RequestParam String apellidoPaterno, @RequestParam String apellidoMaterno, @RequestParam String primerNombre, @RequestParam String segundoNombre,
-                                @RequestParam LocalDate nacimiento, @RequestParam String tipoColegioProcedencia, @RequestParam String nombreColegio, @RequestParam Integer anioEgresoColegio, RedirectAttributes redirectAttributes){
+                                @RequestParam LocalDate nacimiento, @RequestParam String tipoColegioProcedencia, @RequestParam String nombreColegio, @RequestParam Integer anioEgresoColegio, RedirectAttributes redirectAttributes, HttpSession session){
         AlumnoEntity nuevoAlumno = new AlumnoEntity();
         nuevoAlumno.setRut(rut);
         nuevoAlumno.setApelleido_paterno(apellidoPaterno);
@@ -34,6 +35,8 @@ public class AlumnoController {
         nuevoAlumno.setAño_egreso_colegio(anioEgresoColegio);
 
         alumnoService.agregarAlumno(nuevoAlumno);
+
+        session.setAttribute("rutEstudiante", rut);
 
         redirectAttributes.addFlashAttribute("mostrarPosibilidadCuotas", true);
         return "redirect:/paginaCuotas";

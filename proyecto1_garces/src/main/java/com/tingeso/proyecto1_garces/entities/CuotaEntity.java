@@ -21,28 +21,8 @@ public class CuotaEntity {
 
     private Integer cantidad_cuotas;
 
-    private Double marzo;
-
-    private Double abril;
-
-    private Double mayo;
-
-    private Double junio;
-
-    private Double julio;
-
-    private Double agosto;
-
-    private Double septiembre;
-
-    private Double octubre;
-
-    private Double noviembre;
-
-    private Double diciembre;
-
     @OneToOne
-    @JoinColumn(name = "id_alumno")
+    @JoinColumn(name = "rut")
     AlumnoEntity alumno;
 
 }

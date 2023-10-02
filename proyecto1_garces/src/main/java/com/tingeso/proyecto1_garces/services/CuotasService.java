@@ -13,13 +13,10 @@ public class CuotasService {
     @Autowired
     AlumnoRepository alumnoRepository;
 
-    @Autowired
-    private AlumnoService alumnoService;
-
-    public Double calcularMontoTotal(){
+    public Double calcularMontoTotal(String rut){
 
         AlumnoEntity alumno = new AlumnoEntity();
-        alumno = alumnoService.ultimoAlumnoInscrito();
+        alumno = alumnoRepository.findByRut(rut);
 
         Double precioInicial = Double.valueOf(1500000);
         Integer auxiliar = 0;
@@ -57,8 +54,8 @@ public class CuotasService {
         return precioInicial;
     }
 
-    public String cantidadCuotas(){
-        AlumnoEntity alumno = alumnoRepository.idMayor();
+    public String cantidadCuotas(String rut){
+        AlumnoEntity alumno = alumnoRepository.findByRut(rut);
         switch (alumno.getTipo_colegio_procedencia()){
             case "Municipal":
                 return "diez";
@@ -77,16 +74,4 @@ public class CuotasService {
         return cuotas;
     }
 
-    public Integer numeroCantidadCuotas(){
-        if(cantidadCuotas() == "diez"){
-            return 10;
-        }
-        if(cantidadCuotas() == "siete"){
-            return 7;
-        }
-        if (cantidadCuotas() == "cuatro"){
-            return 4;
-        }
-        return null;
-    }
 }

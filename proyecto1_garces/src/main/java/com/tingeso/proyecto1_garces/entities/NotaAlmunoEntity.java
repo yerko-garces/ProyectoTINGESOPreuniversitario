@@ -20,9 +20,11 @@ public class NotaAlmunoEntity {
     @Column(unique = true, nullable = false)
     private Long id_nota_alumno;
 
-    private Integer rut_estudiante;
-
     private LocalDate fecha_examen;
 
     private Integer puntaje;
+
+    @ManyToOne
+    @JoinColumn(name = "rut")
+    private AlumnoEntity alumno;
 }
