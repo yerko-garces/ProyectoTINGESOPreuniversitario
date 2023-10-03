@@ -10,10 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -63,6 +60,10 @@ public class CuotaController {
         model.addAttribute("cuotas", cuotas);
         return "paginaMostrarPagos";
     }
-
+    @PostMapping("/pagar/{id_cuota}")
+    public String pagarCuota(@PathVariable Long id_cuota) {
+        cuotasService.pagarCuota(id_cuota);
+        return "redirect:/paginaMostrarPagos"; // Cambia la URL a la que redirigir según tu configuración.
+    }
 }
 

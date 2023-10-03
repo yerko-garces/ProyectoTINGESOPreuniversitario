@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CuotasService {
@@ -110,6 +111,15 @@ public class CuotasService {
         List<CuotaEntity> cuotasList = new ArrayList<>();
         cuotasIterable.forEach(cuotasList::add);
         return cuotasList;
+    }
+
+    public void pagarCuota(Long idCuota) {
+        Optional<CuotaEntity> optionalCuota = cuotaRepository.findById(idCuota);
+        if (optionalCuota.isPresent()) {
+            CuotaEntity cuota = optionalCuota.get();
+            cuota.setPagado(true);
+            cuotaRepository.save(cuota);
+        }
     }
 
 }

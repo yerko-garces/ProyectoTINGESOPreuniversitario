@@ -8,17 +8,23 @@
 <h1>Resultados de la Búsqueda</h1>
 <table>
     <tr>
-        <th>Estado del Pago</th>
-        <th>Monto a Pagar</th>
-        <th>Fecha de Pago</th>
         <th>Rut</th>
+        <th>Estado del pago</th>
+        <th>Monto a pagar</th>
+        <th>Fecha de pago</th>
     </tr>
     <!-- Itera sobre la lista de cuotas y muestra los resultados -->
     <tr th:each="cuota : ${cuotas}">
+        <td th:text="${cuota.alumno.rut}"></td>
         <td th:text="${cuota.pagado}"></td>
         <td th:text="${cuota.pago_mensual}"></td>
         <td th:text="${cuota.f_pago}"></td>
-        <td th:text="${cuota.alumno.rut}"></td>
+        <td>
+            <form th:action="@{'/pagar/' + ${cuota.id_cuota}}" method="post">
+                <input type="hidden" name="id_cuota" th:value="${cuota.id_cuota}" />
+                <button type="submit" class="btn btn-primary">Pagar</button>
+            </form>
+        </td>
     </tr>
 </table>
 </body>
