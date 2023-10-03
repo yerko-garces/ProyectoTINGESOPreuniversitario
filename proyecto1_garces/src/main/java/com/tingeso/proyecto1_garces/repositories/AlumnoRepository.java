@@ -8,9 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AlumnoRepository extends CrudRepository<AlumnoEntity, String> {
-    @Query(value = "SELECT * FROM alumno WHERE id_alumno = (SELECT MAX(id_alumno) FROM alumno)", nativeQuery = true)
-    AlumnoEntity idMayor();
-
     @Query("SELECT a FROM AlumnoEntity a WHERE a.rut = :rut")
     AlumnoEntity findByRut(@Param("rut") String rut);
 }

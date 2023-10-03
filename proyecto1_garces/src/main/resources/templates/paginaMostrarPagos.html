@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagina para mostrar los pagos</title>
+</head>
+<body>
+<h1>Resultados de la Búsqueda</h1>
+<table>
+    <tr>
+        <th>Estado del Pago</th>
+        <th>Monto a Pagar</th>
+        <th>Fecha de Pago</th>
+        <th>Rut</th>
+    </tr>
+    <!-- Itera sobre la lista de cuotas y muestra los resultados -->
+    <tr th:each="cuota : ${cuotas}">
+        <td th:text="${cuota.pagado}"></td>
+        <td th:text="${cuota.pago_mensual}"></td>
+        <td th:text="${cuota.f_pago}"></td>
+        <td th:text="${cuota.alumno.rut}"></td>
+    </tr>
+</table>
+</body>
+</html>

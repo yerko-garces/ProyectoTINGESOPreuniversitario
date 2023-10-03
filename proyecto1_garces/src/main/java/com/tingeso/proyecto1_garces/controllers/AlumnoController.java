@@ -36,9 +36,8 @@ public class AlumnoController {
 
         alumnoService.agregarAlumno(nuevoAlumno);
 
-        session.setAttribute("rutEstudiante", rut);
+        session.setAttribute("nuevoAlumno", nuevoAlumno);
 
-        redirectAttributes.addFlashAttribute("mostrarPosibilidadCuotas", true);
         return "redirect:/paginaCuotas";
     }
 

@@ -17,4 +17,9 @@ public class PaginasController {
     public String mostrarPaginaEntregarNotas() {
         return "paginaEntregarNotas";
     }
+
+    @GetMapping("/paginaPagos")
+    public String mostrarPaginaPagos() {
+        return "paginaPagos";
+    }
 }

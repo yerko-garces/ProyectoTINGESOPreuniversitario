@@ -1,17 +1,26 @@
 package com.tingeso.proyecto1_garces.services;
 
 import com.tingeso.proyecto1_garces.entities.AlumnoEntity;
+import com.tingeso.proyecto1_garces.entities.CuotaEntity;
 import com.tingeso.proyecto1_garces.repositories.AlumnoRepository;
+import com.tingeso.proyecto1_garces.repositories.CuotaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CuotasService {
 
     @Autowired
     AlumnoRepository alumnoRepository;
+
+    @Autowired
+    CuotaRepository cuotaRepository;
+
 
     public Double calcularMontoTotal(String rut){
 
@@ -72,6 +81,35 @@ public class CuotasService {
     public Double calcularCuota(Double total, Integer cantidadCuotas){
         Double cuotas  = total / cantidadCuotas;
         return cuotas;
+    }
+
+    public void generarCuotas(AlumnoEntity alumno, Integer cantidad, Double monto) {
+
+        LocalDate fechaInicio = LocalDate.now().withMonth(3).withDayOfMonth(10);
+
+        for (int i = 0; i < cantidad; i++) {
+            CuotaEntity cuota = new CuotaEntity();
+            cuota.setPagado(false);
+            cuota.setC_cuotas(cantidad);
+            cuota.setPago_mensual(monto);
+            cuota.setAlumno(alumno);
+            cuota.setF_pago(fechaInicio.plusMonths(i));
+            cuotaRepository.save(cuota);
+        }
+    }
+
+    public List<CuotaEntity> mostrarCuotas() {
+        Iterable<CuotaEntity> cuotasIterable = cuotaRepository.findAll();
+        List<CuotaEntity> cuotasList = new ArrayList<>();
+        cuotasIterable.forEach(cuotasList::add);
+        return cuotasList;
+    }
+
+    public List<CuotaEntity> buscarPorRut(String rut) {
+        Iterable<CuotaEntity> cuotasIterable = cuotaRepository.findByAlumnoRut(rut);
+        List<CuotaEntity> cuotasList = new ArrayList<>();
+        cuotasIterable.forEach(cuotasList::add);
+        return cuotasList;
     }
 
 }

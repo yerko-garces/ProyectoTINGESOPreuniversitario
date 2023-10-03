@@ -18,6 +18,4 @@ public class AlumnoService {
         return alumnoRepository.save(alumno);
     }
 
-    public AlumnoEntity ultimoAlumnoInscrito () {return alumnoRepository.idMayor();}
-
 }
