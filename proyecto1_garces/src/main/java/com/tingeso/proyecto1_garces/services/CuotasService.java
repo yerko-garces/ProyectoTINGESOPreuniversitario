@@ -122,4 +122,12 @@ public class CuotasService {
         }
     }
 
+    public String rutPorId(Long idCuota){
+        Optional<CuotaEntity> optionalCuota = cuotaRepository.findById(idCuota);
+        CuotaEntity cuota = optionalCuota.get();
+        AlumnoEntity alumno = cuota.getAlumno();
+        String rut = alumno.getRut();
+        return rut;
+    }
+
 }

@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Pagina para mostrar los pagos</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-<h1>Resultados de la Búsqueda</h1>
-<table>
-    <tr>
-        <th>Rut</th>
-        <th>Estado del pago</th>
-        <th>Monto a pagar</th>
-        <th>Fecha de pago</th>
-    </tr>
-    <!-- Itera sobre la lista de cuotas y muestra los resultados -->
-    <tr th:each="cuota : ${cuotas}">
-        <td th:text="${cuota.alumno.rut}"></td>
-        <td th:text="${cuota.pagado}"></td>
-        <td th:text="${cuota.pago_mensual}"></td>
-        <td th:text="${cuota.f_pago}"></td>
-        <td>
-            <form th:action="@{'/pagar/' + ${cuota.id_cuota}}" method="post">
-                <input type="hidden" name="id_cuota" th:value="${cuota.id_cuota}" />
-                <button type="submit" class="btn btn-primary">Pagar</button>
-            </form>
-        </td>
-    </tr>
-</table>
+    <h1>Resultados de la Búsqueda</h1>
+    <table>
+        <tr>
+            <th>Rut</th>
+            <th>Estado del pago</th>
+            <th>Monto a pagar</th>
+            <th>Fecha de pago</th>
+        </tr>
+        <!-- Itera sobre la lista de cuotas y muestra los resultados -->
+        <tr th:each="cuota : ${cuotas}">
+            <td th:text="${cuota.alumno.rut}"></td>
+            <td th:text="${cuota.pagado ? 'Pagado' : 'Pendiente'}"></td>
+            <td th:text="${cuota.pago_mensual}"></td>
+            <td th:text="${cuota.f_pago}"></td>
+            <td>
+                <form th:action="@{'/pagar/' + ${cuota.id_cuota}}" method="post">
+                    <input type="hidden" name="id_cuota" th:value="${cuota.id_cuota}" />
+                    <button type="submit" class="btn btn-primary">Pagar</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <h2></h2>
+    <a href="/index">
+        <button>Volver a inicio</button>
+    </a>
 </body>
 </html>

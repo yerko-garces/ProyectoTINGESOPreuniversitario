@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class PaginasController {
 
+    @GetMapping("/index")
+    public String mostrarPaginaIndex() {
+        return "index";
+    }
+
     @GetMapping("/paginaAgregarAlumnos")
     public String mostrarPaginaAgregarAlumnos() {
         return "paginaAgregarAlumnos";

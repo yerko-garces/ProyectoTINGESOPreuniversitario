@@ -2,16 +2,13 @@ package com.tingeso.proyecto1_garces.controllers;
 
 import com.tingeso.proyecto1_garces.entities.AlumnoEntity;
 import com.tingeso.proyecto1_garces.entities.CuotaEntity;
-import com.tingeso.proyecto1_garces.repositories.AlumnoRepository;
-import com.tingeso.proyecto1_garces.repositories.CuotaRepository;
-import com.tingeso.proyecto1_garces.services.AlumnoService;
 import com.tingeso.proyecto1_garces.services.CuotasService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import java.util.List;
 
@@ -21,9 +18,6 @@ public class CuotaController {
 
     @Autowired
     CuotasService cuotasService;
-
-    @Autowired
-    CuotaRepository cuotaRepository;
 
     @GetMapping("/paginaCuotas")
     public String posibilidadDeCuotas(Model model, HttpSession session){
@@ -47,6 +41,13 @@ public class CuotaController {
         return "paginaCuotas";
     }
 
+    @GetMapping("/mostrarCuotasPorRut")
+    public String mostrarCuotasPorRut(@RequestParam String rut, Model model) {
+        List<CuotaEntity> cuotas = cuotasService.buscarPorRut(rut);
+        model.addAttribute("cuotas", cuotas);
+        return "paginaMostrarPagos";
+    }
+
     @GetMapping("/paginaMostrarPagos")
     public String mostrarPagosPorUsuario(Model model) {
         List<CuotaEntity> cuotas = cuotasService.mostrarCuotas();
@@ -54,16 +55,11 @@ public class CuotaController {
         return "paginaMostrarPagos";
     }
 
-    @GetMapping("/mostrarCuotasPorRut")
-    public String mostrarCuotasPorRut(@RequestParam String rut, Model model) {
-        List<CuotaEntity> cuotas = cuotasService.buscarPorRut(rut);
-        model.addAttribute("cuotas", cuotas);
-        return "paginaMostrarPagos";
-    }
     @PostMapping("/pagar/{id_cuota}")
     public String pagarCuota(@PathVariable Long id_cuota) {
         cuotasService.pagarCuota(id_cuota);
-        return "redirect:/paginaMostrarPagos"; // Cambia la URL a la que redirigir según tu configuración.
+        String rut = cuotasService.rutPorId(id_cuota);
+        return "redirect:/mostrarCuotasPorRut?rut=" + rut;
     }
 }
 
