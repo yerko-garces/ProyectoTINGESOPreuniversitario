@@ -10,7 +10,7 @@
 
   <p th:text="${resultadoCantidad}"></p>
 
-  <form method="post" action="/paginaCuotas">
+  <form method="get" action="/paginaCuotass">
       <select name="cantidad">
           <option value="1">1</option>
           <option value="2">2</option>
@@ -30,9 +30,9 @@
   <p th:text="${resultado}"></p>
 
   <h2></h2>
-  <a href="/index">
-      <button>Aceptar cuotas</button>
-  </a>
+  <form method="post" action="/aceptarCuotas">
+      <button type="submit">Aceptar cuotas</button>
+  </form>
 
 
 </body>

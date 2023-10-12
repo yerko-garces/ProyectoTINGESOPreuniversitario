@@ -29,18 +29,34 @@ public class CuotaController {
         return "paginaCuotas";
     }
 
-    @PostMapping("/paginaCuotas")
+    @GetMapping("/paginaCuotass")
     public String calcularCuota(@RequestParam("cantidad") Integer cantidad, Model model, HttpSession session) {
         AlumnoEntity nuevoAlumno = (AlumnoEntity) session.getAttribute("nuevoAlumno");
         Double resultadoMT = cuotasService.calcularMontoTotal(nuevoAlumno.getRut());
         Double resultado = cuotasService.calcularCuota(resultadoMT, cantidad);
 
-        cuotasService.generarCuotas(nuevoAlumno, cantidad, resultado);
+        String cantidadCuotas = cuotasService.cantidadCuotas(nuevoAlumno.getRut());
+        cantidadCuotas = "La cantidad máxima de cuotas a las que puede optar son " + cantidadCuotas;
+        model.addAttribute("resultadoCantidad", cantidadCuotas);
 
         model.addAttribute("resultado", resultado);
+        session.setAttribute("alumno", nuevoAlumno);
+        session.setAttribute("cantidad", cantidad);
+        session.setAttribute("resultado", resultado);
+
         return "paginaCuotas";
     }
 
+    @PostMapping("/aceptarCuotas")
+    public String aceptarCuotas(HttpSession session) {
+        AlumnoEntity nuevoAlumno = (AlumnoEntity) session.getAttribute("alumno");
+        Integer cantidad = (Integer) session.getAttribute("cantidad");
+        Double resultado = (Double) session.getAttribute("resultado");
+
+        cuotasService.generarCuotas(nuevoAlumno, cantidad, resultado);
+
+        return "index";
+    }
     @GetMapping("/mostrarCuotasPorRut")
     public String mostrarCuotasPorRut(@RequestParam String rut, Model model) {
         List<CuotaEntity> cuotas = cuotasService.buscarPorRut(rut);
