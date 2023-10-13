@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgres
+    environment:
+      POSTGRES_PASSWORD: psw123
+      POSTGRES_DB: Preuniversitario_TINGESO
+      POSTGRES_USER: postgres
+    ports:
+      - "5433:5432"
+  app:
+    container_name: proyecto_docker_lab1
+    image: yerkogarces/lab1tbdgarces
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/Preuniversitario_TINGESO?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: psw123
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - postgres
