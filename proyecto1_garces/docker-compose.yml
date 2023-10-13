@@ -1,5 +1,18 @@
 version: "3.8"
 services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app1
+      - app2
+      - app3
+
   postgres:
     image: postgres:latest
     restart: always
@@ -11,11 +24,41 @@ services:
       POSTGRES_USER: postgres
     ports:
       - "5433:5432"
-  app:
+  app1:
     container_name: proyecto_docker_lab1
-    image: yerkogarces/lab1tbdgarces
+    image: yerkogarces/lab1tingeso
     ports:
-      - "8090:8090"
+      - "8091:8090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/Preuniversitario_TINGESO?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: psw123
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - postgres
+
+  app2:
+    container_name: proyecto_docker_lab1
+    image: yerkogarces/lab1tingeso
+    ports:
+      - "8092:8090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/Preuniversitario_TINGESO?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: psw123
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - postgres
+
+  app3:
+    container_name: proyecto_docker_lab1
+    image: yerkogarces/lab1tingeso
+    ports:
+      - "8093:8090"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/Preuniversitario_TINGESO?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: postgres
