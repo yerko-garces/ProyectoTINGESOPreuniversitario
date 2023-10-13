@@ -25,7 +25,7 @@ services:
     ports:
       - "5433:5432"
   app1:
-    container_name: proyecto_docker_lab1
+    container_name: proyecto_docker_lab11
     image: yerkogarces/lab1tingeso
     ports:
       - "8091:8090"
@@ -40,7 +40,7 @@ services:
       - postgres
 
   app2:
-    container_name: proyecto_docker_lab1
+    container_name: proyecto_docker_lab12
     image: yerkogarces/lab1tingeso
     ports:
       - "8092:8090"
@@ -55,7 +55,7 @@ services:
       - postgres
 
   app3:
-    container_name: proyecto_docker_lab1
+    container_name: proyecto_docker_lab13
     image: yerkogarces/lab1tingeso
     ports:
       - "8093:8090"
