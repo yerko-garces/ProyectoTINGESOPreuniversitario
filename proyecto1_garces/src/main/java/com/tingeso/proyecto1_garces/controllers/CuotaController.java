@@ -20,27 +20,27 @@ public class CuotaController {
     CuotasService cuotasService;
 
     @GetMapping("/paginaCuotas")
-    public String posibilidadDeCuotas(Model model, HttpSession session){
-        AlumnoEntity nuevoAlumno = (AlumnoEntity) session.getAttribute("nuevoAlumno");
+    public String posibilidadDeCuotas(Model model){
+        AlumnoEntity nuevoAlumno = cuotasService.alumnosSC();
         String cantidadCuotas = cuotasService.cantidadCuotas(nuevoAlumno.getRut());
         cantidadCuotas = "La cantidad maxima de cuotas a las que puede optar son " + cantidadCuotas;
         model.addAttribute("resultadoCantidad", cantidadCuotas);
-        session.setAttribute("nuevoAlumno", nuevoAlumno);
+
         return "paginaCuotas";
     }
 
     @GetMapping("/paginaCuotass")
     public String calcularCuota(@RequestParam("cantidad") Integer cantidad, Model model, HttpSession session) {
-        AlumnoEntity nuevoAlumno = (AlumnoEntity) session.getAttribute("nuevoAlumno");
+
+        AlumnoEntity nuevoAlumno = cuotasService.alumnosSC();
         Double resultadoMT = cuotasService.calcularMontoTotal(nuevoAlumno.getRut());
         Double resultado = cuotasService.calcularCuota(resultadoMT, cantidad);
 
         String cantidadCuotas = cuotasService.cantidadCuotas(nuevoAlumno.getRut());
         cantidadCuotas = "La cantidad máxima de cuotas a las que puede optar son " + cantidadCuotas;
-        model.addAttribute("resultadoCantidad", cantidadCuotas);
 
+        model.addAttribute("resultadoCantidad", cantidadCuotas);
         model.addAttribute("resultado", resultado);
-        session.setAttribute("alumno", nuevoAlumno);
         session.setAttribute("cantidad", cantidad);
         session.setAttribute("resultado", resultado);
 
@@ -49,7 +49,7 @@ public class CuotaController {
 
     @PostMapping("/aceptarCuotas")
     public String aceptarCuotas(HttpSession session) {
-        AlumnoEntity nuevoAlumno = (AlumnoEntity) session.getAttribute("alumno");
+        AlumnoEntity nuevoAlumno = cuotasService.alumnosSC();
         Integer cantidad = (Integer) session.getAttribute("cantidad");
         Double resultado = (Double) session.getAttribute("resultado");
 

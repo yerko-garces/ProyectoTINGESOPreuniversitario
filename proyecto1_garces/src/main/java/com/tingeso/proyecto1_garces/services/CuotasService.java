@@ -130,4 +130,7 @@ public class CuotasService {
         return rut;
     }
 
+    public AlumnoEntity alumnosSC(){
+        return alumnoRepository.findAlumnoSinCuota();
+    }
 }

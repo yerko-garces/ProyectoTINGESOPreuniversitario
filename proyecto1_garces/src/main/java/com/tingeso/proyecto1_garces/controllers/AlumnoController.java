@@ -19,7 +19,7 @@ public class AlumnoController {
 
     @PostMapping("/agregarAlumno")
     public String agregarAlumno(@RequestParam String rut, @RequestParam String apellidoPaterno, @RequestParam String apellidoMaterno, @RequestParam String primerNombre, @RequestParam String segundoNombre,
-                                @RequestParam LocalDate nacimiento, @RequestParam String tipoColegioProcedencia, @RequestParam String nombreColegio, @RequestParam Integer anioEgresoColegio, RedirectAttributes redirectAttributes, HttpSession session){
+                                @RequestParam LocalDate nacimiento, @RequestParam String tipoColegioProcedencia, @RequestParam String nombreColegio, @RequestParam Integer anioEgresoColegio){
         AlumnoEntity nuevoAlumno = new AlumnoEntity();
         nuevoAlumno.setRut(rut);
         nuevoAlumno.setApelleido_paterno(apellidoPaterno);
@@ -32,8 +32,6 @@ public class AlumnoController {
         nuevoAlumno.setAño_egreso_colegio(anioEgresoColegio);
 
         alumnoService.agregarAlumno(nuevoAlumno);
-
-        session.setAttribute("nuevoAlumno", nuevoAlumno);
 
         return "redirect:/paginaCuotas";
     }
