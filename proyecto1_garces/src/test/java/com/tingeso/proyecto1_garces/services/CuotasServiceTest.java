@@ -372,4 +372,13 @@ class CuotasServiceTest {
         String resultadoRut = cuotasService.rutPorId(idCuota);
         assertEquals(rutAlumno, resultadoRut);
     }
+
+    @Test
+    void alumnosSC(){
+        AlumnoEntity alumnoSimulado = new AlumnoEntity();
+        alumnoSimulado.setRut("33.333.333-3");
+        when(alumnoRepository.findAlumnoSinCuota()).thenReturn(alumnoSimulado);
+        AlumnoEntity resultado = cuotasService.alumnosSC();
+        assertEquals(alumnoSimulado, resultado);
+    }
 }

@@ -29,9 +29,11 @@
   <h2>Monto previo por cuota:</h2>
   <p th:text="${resultado}"></p>
 
-  <h2></h2>
-  <form method="post" action="/aceptarCuotas">
-      <button type="submit">Aceptar cuotas</button>
+  <h2>Luego de ver las opciones, con cuantas cuotas se quedara?:</h2>
+  <form action="/aceptarCuotas" method="post">
+      <label for="cantidadOficial">Ingrese cantidad:</label>
+      <input type="text" id="cantidadOficial" name="cantidadOficial" required>
+      <button type="submit">Aceptar</button>
   </form>
 
 

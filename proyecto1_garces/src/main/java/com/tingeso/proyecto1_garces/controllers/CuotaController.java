@@ -14,7 +14,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping
-@SessionAttributes({"cantidad", "resultado"})
 public class CuotaController {
 
     @Autowired
@@ -25,7 +24,6 @@ public class CuotaController {
         AlumnoEntity nuevoAlumno = cuotasService.alumnosSC();
         String cantidadCuotas = cuotasService.cantidadCuotas(nuevoAlumno.getRut());
         cantidadCuotas = "La cantidad maxima de cuotas a las que puede optar son " + cantidadCuotas;
-        model.addAttribute("nuevoAlumno", nuevoAlumno);
         model.addAttribute("resultadoCantidad", cantidadCuotas);
 
         return "paginaCuotas";
@@ -41,19 +39,21 @@ public class CuotaController {
         cantidadCuotas = "La cantidad máxima de cuotas a las que puede optar son " + cantidadCuotas;
 
         model.addAttribute("resultadoCantidad", cantidadCuotas);
-        model.addAttribute("cantidad", cantidad);
         model.addAttribute("resultado", resultado);
+        model.addAttribute("cantidad", cantidad);
 
         return "paginaCuotas";
     }
 
     @PostMapping("/aceptarCuotas")
-    public String aceptarCuotas(@ModelAttribute("cantidad") Integer cantidad, @ModelAttribute("resultado") Double resultado) {
+    public String aceptarCuotas(@RequestParam Integer cantidadOficial) {
         AlumnoEntity nuevoAlumno = cuotasService.alumnosSC();
-        cuotasService.generarCuotas(nuevoAlumno, cantidad, resultado);
+        Double resultado = cuotasService.calcularCuota(cuotasService.calcularMontoTotal(nuevoAlumno.getRut()), cantidadOficial);
+        cuotasService.generarCuotas(nuevoAlumno, cantidadOficial, resultado);
 
         return "index";
     }
+
 
     @GetMapping("/mostrarCuotasPorRut")
     public String mostrarCuotasPorRut(@RequestParam String rut, Model model) {
